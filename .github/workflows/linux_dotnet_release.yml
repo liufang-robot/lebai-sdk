@@ -32,11 +32,13 @@ jobs:
 
       - name: Upload pacakges
         run: |
-          cd ./build/dotnet/packages          
-          dotnet nuget push lebai.runtime.linux-x64.1.*.*.nupkg --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json
-          dotnet nuget push lebai.1.*.*.nupkg --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json
+          cd ./build/dotnet/packages
+          ls -l
+          dotnet nuget push --help
+          dotnet nuget push lebai.runtime.linux-x64.1.*.*.nupkg -k ${{ secrets.LEBAI_NUGET_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push lebai.1.*.*.nupkg -k ${{ secrets.LEBAI_NUGET_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         id: artifact
         with:
           name: lebai-linux-x64-nupkg

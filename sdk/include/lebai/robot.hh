@@ -102,14 +102,14 @@ class Robot {
    *
    */
   virtual ~Robot();
+
+  // clang-format off
   /**
    * 示例代码:
    *
-   *     std::string movej_req =
-   * "{\"param\":{\"v\":0.1},\"pose\":{\"joint\":{\"delta\":"{\"joint\":[-1.0,0.0,0.0,0.0,0.0,0.0]}}}}";
+   *     std::string movej_req = "{\"param\":{\"v\":0.1},\"pose\":{\"joint\":{\"delta\":"{\"joint\":[-1.0,0.0,0.0,0.0,0.0,0.0]}}}}";
    *     resp = robot.call("movej", movej_req);
-   *     std::cout << "resp: " << std::get<0>(resp) << ", " << std::get<1>(resp)
-   * << std::endl;
+   *     std::cout << "resp: " << std::get<0>(resp) << ", " << std::get<1>(resp) << std::endl;
    *
    *
    * @brief 用JSON格式字符串调用机械臂的接口.
@@ -121,6 +121,7 @@ class Robot {
    * 如果返回码为0，表示调用成功，第二个元素是JSONRPC的返回数据.
    * 如果返回码为非0，表示调用失败，第二个元素是错误信息.
    */
+  // clang-format on
   std::tuple<int, std::string> call(const std::string &method,
                                     const std::string &params);
 
@@ -826,6 +827,13 @@ class Robot {
    * @brief 查询任务列表
    */
   std::vector<unsigned int> load_task_list();
+  /**
+   * @brief 等待任务完成
+   *
+   * @param id: 任务的ID
+   * @return 返回任务是否成功
+   */
+  bool wait_task(unsigned int id);
   /**
    * @brief 暂停任务与运动
    *
